@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internships</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Body and Layout */
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Use a modern gradient background */
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .internship-container {
+            text-align: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Internship Grid */
+        .internship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        /* Internship Cards */
+        .internship-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: left;
+        }
+
+        .internship-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .internship-card h2 {
+            color: #34495e;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .internship-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            width: 100%;
+        }
+
+        .internship-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 400;
+        }
+
+        .internship-card li:last-child {
+            border-bottom: none;
+        }
+
+        /* View Details Button */
+        .view-details-btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            border: none;
+        }
+
+        .view-details-btn:hover {
+            background: linear-gradient(45deg, #2980b9, #3498db);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .view-details-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            color: #3498db;
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .modal-content h4 {
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+
+        .modal-content p, .modal-content ul {
+            color: #4a4a4a;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .modal-content ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding: 0;
+        }
+
+        .modal-content ul li {
+            margin-bottom: 5px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2.5em;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <main class="internship-container">
+        <h1>Internships</h1>
+        <section class="internship-grid">
+            <div class="internship-card">
+                <h2>Web Development Internship Program</h2>
+                <ul>
+                    <li><strong>Duration:</strong> 1 month/2 months</li>
+                    <li><strong>Location:</strong> Virtual</li>
+                    <li><strong>Stipend:</strong> -</li>
+                    <li><strong>Start date:</strong> 05/11/2023</li>
+                </ul>
+                <button class="view-details-btn" data-internship="web-dev">View Details</button>
+            </div>
+            <div class="internship-card">
+                <h2>App Development Internship Program</h2>
+                <ul>
+                    <li><strong>Duration:</strong> 1 month/2 months</li>
+                    <li><strong>Location:</strong> Virtual</li>
+                    <li><strong>Stipend:</strong> -</li>
+                    <li><strong>Start date:</strong> 05/11/2023</li>
+                </ul>
+                <button class="view-details-btn" data-internship="app-dev">View Details</button>
+            </div>
+            <div class="internship-card">
+                <h2>Python Programming Internship Program</h2>
+                <ul>
+                    <li><strong>Duration:</strong> 1 month/2 months</li>
+                    <li><strong>Location:</strong> Virtual</li>
+                    <li><strong>Stipend:</strong> -</li>
+                    <li><strong>Start date:</strong> 05/11/2023</li>
+                </ul>
+                <button class="view-details-btn" data-internship="python">View Details</button>
+            </div>
+            <div class="internship-card">
+                <h2>Java Programming Internship Program</h2>
+                <ul>
+                    <li><strong>Duration:</strong> 1 month/2 months</li>
+                    <li><strong>Location:</strong> Virtual</li>
+                    <li><strong>Stipend:</strong> -</li>
+                    <li><strong>Start date:</strong> 05/11/2023</li>
+                </ul>
+                <button class="view-details-btn" data-internship="java">View Details</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- The Modal -->
+    <div id="details-modal" class="modal">
+      <div class="modal-content">
+        <span id="modal-close" class="modal-close">&times;</span>
+        <div id="modal-body">
+          <!-- Details will be injected here by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+        // Data for each internship to be displayed in the modal
+        const internshipDetails = {
+            'web-dev': {
+                title: 'Web Development Internship Program',
+                description: 'This program provides hands-on experience in both front-end and back-end web technologies. Interns will work on a live project, collaborating with a team to build and deploy a modern web application.',
+                skills: ['HTML5, CSS3, JavaScript (ES6+)', 'React.js and Node.js with Express', 'RESTful API design and integration', 'Database management with MongoDB'],
+                project: 'Building a full-stack e-commerce application.'
+            },
+            'app-dev': {
+                title: 'App Development Internship Program',
+                description: 'Focusing on cross-platform mobile development, this internship will teach you to build and ship mobile applications that run on both iOS and Android.',
+                skills: ['Cross-platform frameworks like Flutter or React Native', 'Responsive UI/UX design principles', 'State management (e.g., Provider, Redux)', 'API integration'],
+                project: 'Developing a social media or a productivity app.'
+            },
+            'python': {
+                title: 'Python Programming Internship Program',
+                description: 'This is a comprehensive internship for those interested in Python’s versatility. You will learn how to use Python for various applications, including data analysis, automation, and back-end web development.',
+                skills: ['Foundational Python and object-oriented programming', 'Data analysis with Pandas and NumPy', 'Introduction to machine learning with Scikit-learn', 'Web frameworks like Django or Flask'],
+                project: 'Creating a data visualization dashboard or an automated web scraper.'
+            },
+            'java': {
+                title: 'Java Programming Internship Program',
+                description: 'Designed for aspiring enterprise developers, this program focuses on core Java and object-oriented programming principles. You will be building a full-stack application using modern frameworks.',
+                skills: ['Core Java and OOP principles', 'Spring Boot for back-end development', 'Database integration with SQL', 'Microservices architecture and RESTful API development'],
+                project: 'Developing the backend for an online banking system.'
+            }
+        };
+
+        const modal = document.getElementById('details-modal');
+        const modalBody = document.getElementById('modal-body');
+        const closeBtn = document.getElementById('modal-close');
+        const viewDetailButtons = document.querySelectorAll('.view-details-btn');
+
+        // Function to show the modal with specific details
+        function showModal(internshipKey) {
+            const details = internshipDetails[internshipKey];
+            if (details) {
+                // Build the list of skills
+                const skillsList = details.skills.map(skill => `<li>${skill}</li>`).join('');
+                
+                modalBody.innerHTML = `
+                    <h3>${details.title}</h3>
+                    <p>${details.description}</p>
+                    <h4>Key Skills Gained</h4>
+                    <ul>${skillsList}</ul>
+                    <h4>Example Project</h4>
+                    <p>${details.project}</p>
+                `;
+                modal.style.display = 'flex';
+            }
+        }
+
+        // Add event listeners to all "View Details" buttons
+        viewDetailButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const internshipKey = button.getAttribute('data-internship');
+                showModal(internshipKey);
+            });
+        });
+
+        // Add event listener to the close button
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close the modal if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
